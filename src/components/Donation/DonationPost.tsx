@@ -68,7 +68,7 @@ const DonationPost: FC<PostProps> = ({ post }) => {
 
       <div className="bg-gray-50 dark:bg-gray-800 z-20 text-sm px-4 py-4 sm:px-6">
         <Link
-          href={`/r/donate/${post.category}/post/${post.id}`}
+          href={`/r/donate/post/${post.id}`}
           className="w-fit flex items-center gap-2"
         >
           <span className="text-gray-500">View Donation post</span>

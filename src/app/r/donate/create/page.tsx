@@ -58,14 +58,14 @@ const CreateDonationPage = () => {
         toast({
           title: "Donation Post Created",
           description: "Your donation post has been successfully created!",
-          variant: "success",
+          variant: "default",
         });
         router.push("/r/donate");
       }
     } catch (error) {
       toast({
         title: "Error creating donation post.",
-        description: error || "An unknown error occurred.",
+        description: String(error) || "An unknown error occurred.",
         variant: "destructive",
       });
     }

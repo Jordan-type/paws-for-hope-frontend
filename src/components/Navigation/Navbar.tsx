@@ -41,13 +41,13 @@ const Navbar = () => {
             Donate
           </Link>
           <Link
-            href="r/find-pet"
+            href="f/find-pet"
             className="px-4 py-2 text-sm font-medium rounded-lg transition-all"
           >
             Find Pet
           </Link>
           <Link
-            href="r/products"
+            href="/marketplace"
             className="px-4 py-2 text-sm font-medium rounded-lg transition-all"
           >
             Market Place

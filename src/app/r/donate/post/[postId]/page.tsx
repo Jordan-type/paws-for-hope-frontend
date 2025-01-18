@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { useGetPostById, useDonateToPost } from "@/hooks/use-donation"; // Import donation hook
+import { useUSDCpaws } from "@/hooks/use-usdc-paws";
 import { useState } from "react";
 import { useWallet } from "@/context/WalletContext";
 import { toast } from "@/hooks/use-toast"; // Ensure you're using a toast library for notifications
@@ -19,6 +20,7 @@ const DonationPostPage = () => {
 
   const { data: post, isLoading, error } = useGetPostById(contractAddress, postId);
   const { donateToPost, isLoading: isDonating } = useDonateToPost(contractAddress);
+  const { approveTokens, isApproving } = useUSDCpaws();
 
   const [donationAmount, setDonationAmount] = useState<number>(0);
 
@@ -41,12 +43,23 @@ const DonationPostPage = () => {
       return;
     }
 
+    // Approve the USDC transfer first
+    const approvalResult = await approveTokens(contractAddress, donationAmount);
+    if (!approvalResult.success) {
+      toast({
+        title: "Approval Failed",
+        description: "An error occurred during the approval process.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const result = await donateToPost(postId, donationAmount);
     if (result.success) {
       toast({
         title: "Donation Successful",
         description: `Transaction hash: ${result.transactionHash}`,
-        variant: "success",
+        variant: "default",
       });
     } else {
       toast({
@@ -125,9 +138,9 @@ const DonationPostPage = () => {
               variant="default"
               className="bg-purple-600 text-white hover:bg-purple-700"
               onClick={handleDonate}
-              disabled={isDonating}
+              disabled={isDonating || isApproving}
             >
-              {isDonating ? "Processing..." : "Donate Now"}
+              {isDonating || isApproving ? "Processing..." : "Donate Now"}
             </Button>
           </div>
           <p className="text-sm text-zinc-500">
