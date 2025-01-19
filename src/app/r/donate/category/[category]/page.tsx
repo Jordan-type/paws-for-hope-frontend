@@ -1,9 +1,9 @@
 import React from 'react';
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 const CategoryPage: React.FC = () => {
-    const router = useRouter();
-    const { category } = router.query;
+    const params = useParams();
+    const category  = params.category;
 
     return (
         <div>
