@@ -1,9 +1,11 @@
+"use client"
+
 import React from 'react';
-import { useParams } from "next/navigation";
+// import { useParams } from "next/navigation";
 
 const CategoryPage: React.FC = () => {
-    const params = useParams();
-    const category  = params.category;
+    // const params = useParams();
+    // const category  = params.category;
 
     return (
         <div>
