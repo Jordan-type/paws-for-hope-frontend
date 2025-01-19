@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-
+import InvalidRouteRedirect from "@/components/Navigation/InvalidRouteRedirect";
 import Navbar from "@/components/Navigation/Navbar";
 import Providers from "@/Providers/Providers";
 import { Toaster } from "@/components/ui/Toaster";
@@ -31,6 +31,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
           <Navbar />
+          <InvalidRouteRedirect />
             {children}
         </Providers>
         <Toaster />

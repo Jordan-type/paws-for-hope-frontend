@@ -47,7 +47,7 @@ const Navbar = () => {
             Find Pet
           </Link>
           <Link
-            href="/marketplace"
+            href="m/marketplace"
             className="px-4 py-2 text-sm font-medium rounded-lg transition-all"
           >
             Market Place
