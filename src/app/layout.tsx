@@ -21,20 +21,16 @@ export const metadata: Metadata = {
   description: "A Community App made for those who care about pets and want to participate and work for their betterment.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children, }: Readonly<{children: React.ReactNode; }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
           <Navbar />
           <InvalidRouteRedirect />
             {children}
+            <Toaster />
         </Providers>
-        <Toaster />
       </body>
     </html>
   );

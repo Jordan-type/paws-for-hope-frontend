@@ -9,8 +9,9 @@ const CategoryPage: React.FC = () => {
 
     return (
         <div>
-            <h1>Donate to {category}</h1>
-            <p>Thank you for considering a donation to {category}. Your support helps us continue our mission.</p>
+
+            <h1>Donate to </h1>
+            {/* <p>Thank you for considering a donation to {category}. Your support helps us continue our mission.</p> */}
             {/* Add more content and components as needed */}
         </div>
     );

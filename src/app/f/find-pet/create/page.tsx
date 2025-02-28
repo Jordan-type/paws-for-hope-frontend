@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/Button";
@@ -12,7 +12,7 @@ import { useUSDCpaws } from "@/hooks/use-usdc-paws";
 
 const contractAddress = "0xeB6deFC2b3588e8C807701DA8b31Bd52E39f0039";
 
-const CreateFindPetPage = () => {
+const CreateFindPetForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const walletAddress = searchParams.get("wallet");
@@ -188,5 +188,13 @@ const CreateFindPetPage = () => {
     </div>
   );
 };
+
+const CreateFindPetPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CreateFindPetForm />
+    </Suspense>
+  );
+}
 
 export default CreateFindPetPage;

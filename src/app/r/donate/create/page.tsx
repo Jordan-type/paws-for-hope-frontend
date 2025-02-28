@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/Button";
@@ -11,7 +11,7 @@ import { useCreateDonationPost } from "@/hooks/use-donation";
 
 const contractAddress = "0x244747e42Aa15452D08Ef3d58B9693f6f49911c7";
 
-const CreateDonationPage = () => {
+const CreateDonationForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const walletAddress = searchParams.get("wallet");
@@ -174,6 +174,14 @@ const CreateDonationPage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const CreateDonationPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CreateDonationForm />
+    </Suspense>
   );
 };
 

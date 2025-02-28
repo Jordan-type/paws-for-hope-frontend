@@ -1,4 +1,4 @@
-// types.ts
+// types.ts 
 
 export interface PetPost {
     creator: string;

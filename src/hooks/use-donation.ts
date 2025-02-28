@@ -125,9 +125,11 @@ export function useGetTotalDonations(contractAddress: string, creator: string) {
   };
 }
 
-export default {
+const hooks = {
   useGetAllPosts,
   useGetPostById,
   useGetPostsByCategory,
   useGetTotalDonations,
-}
+};
+
+export default hooks;

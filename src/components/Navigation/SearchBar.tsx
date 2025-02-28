@@ -20,6 +20,7 @@ const SearchBar: FC = () => {
       <CommandInput
         onValueChange={(text: string) => setInput(text)}
         value={input}
+        isLoading={false}
         className="outline-none border-none focus:border-none focus:outline-none ring-0"
         placeholder="Search posts..."
       />

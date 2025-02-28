@@ -79,3 +79,9 @@
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
 }
+
+@layer utilities {
+  .border-border {
+    @apply border-gray-200; /* Or any other valid Tailwind class */
+  }
+}

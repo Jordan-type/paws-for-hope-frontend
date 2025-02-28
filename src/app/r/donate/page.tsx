@@ -42,7 +42,7 @@ const Page = () => {
     currentAmount: parseInt(post.currentAmount.toString(), 10),
     category: post.category,
     description: post.description,
-    deadline: parseInt(post.deadline.toString(), 10),
+    deadline: parseInt(post.deadline.toString(), 10), // 1919191919199789789
     beneficiary: post.beneficiary,
     isOpen: post.isOpen,
   })) || [];
