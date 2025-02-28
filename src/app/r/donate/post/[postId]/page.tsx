@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
+import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useGetPostById, useDonateToPost } from "@/hooks/use-donation"; // Import donation hook
 import { useUSDCpaws } from "@/hooks/use-usdc-paws";
 import { useState } from "react";

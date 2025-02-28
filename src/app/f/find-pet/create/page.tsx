@@ -3,9 +3,9 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Textarea } from "@/components/ui/Textarea";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { useCreateFindPetPost } from "@/hooks/use-findPet";
 import { useUSDCpaws } from "@/hooks/use-usdc-paws";
@@ -171,17 +171,17 @@ const CreateFindPetForm = () => {
         <div className="flex justify-end gap-4">
           <Button
             disabled={isLoading}
-            variant="subtle"
+            variant="default"
             onClick={() => router.back()}
           >
             Cancel
           </Button>
           <Button
-            isLoading={isLoading || isApproving}
-            disabled={Object.values(formData).some((val) => val === "")}
+            disabled={isLoading || isApproving || Object.values(formData).some((val) => val === "")} // Combine loading states and form validation
+            variant="default"
             onClick={handleCreatePost}
           >
-            Approve and Create Post
+            {isLoading || isApproving ? "Loading..." : "Approve and Create Post"} {/* Show loading text */}
           </Button>
         </div>
       </div>

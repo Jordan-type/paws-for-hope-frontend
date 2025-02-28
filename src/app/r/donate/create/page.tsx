@@ -3,9 +3,9 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Textarea } from "@/components/ui/Textarea";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { useCreateDonationPost } from "@/hooks/use-donation";
 
@@ -159,17 +159,17 @@ const CreateDonationForm = () => {
         <div className="flex justify-end gap-4">
           <Button
             disabled={isLoading}
-            variant="subtle"
+            variant="default"
             onClick={() => router.back()}
           >
             Cancel
           </Button>
           <Button
-            isLoading={isLoading}
-            disabled={Object.values(formData).some((val) => val === "")}
+            disabled={isLoading || Object.values(formData).some((val) => val === "")} // Combine isLoading with other conditions
+            variant="default"
             onClick={handleCreatePost}
           >
-            Create Donation Post
+            {isLoading ? "Loading..." : "Create Donation Post"}
           </Button>
         </div>
       </div>

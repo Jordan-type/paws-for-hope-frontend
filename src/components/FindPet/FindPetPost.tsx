@@ -4,7 +4,7 @@ import { formatTimeToNow } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
-import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
+import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
 import { ExtendedPetPost } from '@/types/types'; 
 

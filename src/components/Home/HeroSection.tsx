@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from "next/link"
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/Card"
+import { Card, CardContent } from "@/components/ui/card"
 import { HeartIcon, LeafIcon, PawPrintIcon, UsersIcon, WalletIcon } from "@/components/ui/Icons"
 
 const HeroSection = ()  => {
