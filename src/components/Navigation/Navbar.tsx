@@ -5,10 +5,14 @@ import SearchBar from "@/components/Navigation/SearchBar";
 import { PawPrintIcon } from "@/components/ui/Icons";
 import { ModeToggle } from "@/components/Navigation/DarkMode";
 import { ConnectWallet, useAddress, useDisconnect } from "@thirdweb-dev/react";
+import { FC, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react"; // For hamburger and close icons
 
-const Navbar = () => {
+const Navbar: FC = () => {
   const address = useAddress();
   const disconnect = useDisconnect();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleDisconnect = async () => {
     try {
@@ -18,59 +22,121 @@ const Navbar = () => {
     }
   };
 
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   return (
-    <div className="fixed dark:bg-[#030711] dark:text-white top-0 inset-x-0 h-fit bg-zinc-100 border-b border-zinc-300 z-[10] py-2">
+    <nav className="fixed top-0 inset-x-0 h-fit bg-background dark:bg-[#030711] dark:text-white border-b border-zinc-300 z-[10] py-2">
       <div className="container max-w-7xl h-full mx-auto flex items-center justify-between gap-2">
         {/* Logo */}
         <Link href="/" className="flex gap-2 items-center">
           <PawPrintIcon className="h-6 w-6 text-primary" />
-          <span className="ml-2 text-lg font-semibold text-foreground">
-            Paws for Hope
-          </span>
+          <span className="ml-2 text-lg font-semibold text-foreground">Paws for Hope</span>
         </Link>
 
-        {/* Search Bar */}
-        <SearchBar />
+        {/* Search Bar and Mobile Menu - Responsive */}
+        <div className="flex items-center gap-4 w-full max-w-md sm:max-w-lg md:max-w-xl">
+          {/* Search Bar - Hidden on Mobile, Shown on Small+ */}
+          <div className="relative w-full hidden sm:block">
+            <SearchBar />
+          </div>
 
-        {/* Links and Actions */}
-        <div className="flex items-center gap-3 sm:gap-5">
+          {/* Mobile Menu Button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden p-1"
+            onClick={toggleMenu}
+          >
+            {isMenuOpen ? (
+              <X className="h-6 w-6 text-foreground" />
+            ) : (
+              <Menu className="h-6 w-6 text-foreground" />
+            )}
+          </Button>
+        </div>
+
+        {/* Links and Actions - Hidden on Mobile, Shown on Medium+ */}
+        <div className="hidden md:flex items-center gap-3 sm:gap-5">
           <Link
-            href="r/donate"
-            className="px-4 py-2 text-sm font-medium rounded-lg transition-all"
+            href="/r/donate"
+            className="px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
           >
             Donate
           </Link>
           <Link
-            href="f/find-pet"
-            className="px-4 py-2 text-sm font-medium rounded-lg transition-all"
+            href="/f/find-pet"
+            className="px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
           >
             Find Pet
           </Link>
           <Link
-            href="m/marketplace"
-            className="px-4 py-2 text-sm font-medium rounded-lg transition-all"
+            href="/m/marketplace"
+            className="px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
           >
             Market Place
           </Link>
           {address ? (
-            <button
+            <Button
               onClick={handleDisconnect}
-              className="px-4 py-2 border text-sm font-medium transition-all"
+              className="px-4 py-2 border text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
             >
               Disconnect ({address.slice(0, 6)}...{address.slice(-4)})
-            </button>
+            </Button>
           ) : (
-            <ConnectWallet className="btn-sm px-4 py-2 border border-gray-300 text-sm font-medium transition-all" />
+            <ConnectWallet className="px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary" />
           )}
           <ModeToggle />
         </div>
+
+        {/* Mobile Menu - Hidden by default, shown on click */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-background dark:bg-[#030711] border-t border-zinc-300 p-4">
+            <div className="flex flex-col gap-4">
+              <SearchBar />
+              <Link
+                href="/r/donate"
+                className="text-sm font-medium text-foreground hover:text-primary"
+                onClick={toggleMenu}
+              >
+                Donate
+              </Link>
+              <Link
+                href="/f/find-pet"
+                className="text-sm font-medium text-foreground hover:text-primary"
+                onClick={toggleMenu}
+              >
+                Find Pet
+              </Link>
+              <Link
+                href="/m/marketplace"
+                className="text-sm font-medium text-foreground hover:text-primary"
+                onClick={toggleMenu}
+              >
+                Market Place
+              </Link>
+              {address ? (
+                <button
+                  onClick={() => {
+                    handleDisconnect();
+                    toggleMenu();
+                  }}
+                  className="w-full px-4 py-2 border text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
+                >
+                  Disconnect ({address.slice(0, 6)}...{address.slice(-4)})
+                </button>
+              ) : (
+                <ConnectWallet
+                  className="w-full px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
+                  onConnect={toggleMenu}
+                />
+              )}
+              <ModeToggle />
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+    </nav>
   );
 };
 
 export default Navbar;
-
-
-
-// beavis and butt-head cartoon
