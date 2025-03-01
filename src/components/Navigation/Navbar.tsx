@@ -27,14 +27,17 @@ const Navbar: FC = () => {
   return (
     <nav className="fixed top-0 inset-x-0 h-fit bg-background dark:bg-[#030711] dark:text-white border-b border-zinc-300 z-[10] py-2">
       <div className="container max-w-7xl h-full mx-auto flex items-center justify-between gap-2">
-        {/* Logo */}
-        <Link href="/" className="flex gap-2 items-center">
-          <PawPrintIcon className="h-6 w-6 text-primary" />
-          <span className="ml-2 text-lg font-semibold text-foreground">Paws for Hope</span>
+        {/* Logo - Styled like nav links */}
+        <Link
+          href="/"
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
+        >
+          <PawPrintIcon className="h-5 w-5 text-primary" /> {/* Reduced size for consistency */}
+          <span>Paws for Hope</span>
         </Link>
 
         {/* Search Bar and Mobile Menu - Responsive */}
-        <div className="flex items-center gap-4 w-full max-w-md sm:max-w-lg md:max-w-xl">
+        <div className="flex items-center gap-2 w-full max-w-md sm:max-w-lg md:max-w-xl">
           {/* Search Bar - Hidden on Mobile, Shown on Small+ */}
           <div className="relative w-full hidden sm:block">
             <SearchBar />
@@ -56,7 +59,7 @@ const Navbar: FC = () => {
         </div>
 
         {/* Links and Actions - Hidden on Mobile, Shown on Medium+ */}
-        <div className="hidden md:flex items-center gap-3 sm:gap-5">
+        <div className="hidden md:flex items-center gap-2 sm:gap-4">
           <Link
             href="/r/donate"
             className="px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
@@ -78,12 +81,15 @@ const Navbar: FC = () => {
           {address ? (
             <Button
               onClick={handleDisconnect}
-              className="px-4 py-2 border text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
+              variant="outline"
+              className="px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary border border-gray-300"
             >
               Disconnect ({address.slice(0, 6)}...{address.slice(-4)})
             </Button>
           ) : (
-            <ConnectWallet className="px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary" />
+            <ConnectWallet
+              className="px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary border border-gray-300"
+            />
           )}
           <ModeToggle />
         </div>
@@ -95,38 +101,39 @@ const Navbar: FC = () => {
               <SearchBar />
               <Link
                 href="/r/donate"
-                className="text-sm font-medium text-foreground hover:text-primary"
+                className="px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
                 onClick={toggleMenu}
               >
                 Donate
               </Link>
               <Link
                 href="/f/find-pet"
-                className="text-sm font-medium text-foreground hover:text-primary"
+                className="px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
                 onClick={toggleMenu}
               >
                 Find Pet
               </Link>
               <Link
                 href="/m/marketplace"
-                className="text-sm font-medium text-foreground hover:text-primary"
+                className="px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
                 onClick={toggleMenu}
               >
                 Market Place
               </Link>
               {address ? (
-                <button
+                <Button
                   onClick={() => {
                     handleDisconnect();
                     toggleMenu();
                   }}
-                  className="w-full px-4 py-2 border text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
+                  variant="outline"
+                  className="w-full px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary border border-gray-300"
                 >
                   Disconnect ({address.slice(0, 6)}...{address.slice(-4)})
-                </button>
+                </Button>
               ) : (
                 <ConnectWallet
-                  className="w-full px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary"
+                  className="w-full px-4 py-2 text-sm font-medium rounded-lg transition-all text-foreground hover:text-primary border border-gray-300"
                   onConnect={toggleMenu}
                 />
               )}
