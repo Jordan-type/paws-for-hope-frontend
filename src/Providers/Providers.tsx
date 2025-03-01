@@ -18,14 +18,32 @@ const Providers: FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     setMounted(true);
+    // Suppress Radix UI DialogTitle warning (temporary)
+    const originalWarn = console.warn;
+    console.warn = (...args) => {
+      if (args[0].includes("DialogContent requires a DialogTitle")) return;
+      originalWarn(...args);
+    };
+    return () => {
+      console.warn = originalWarn;
+    };
+  }, []);
+
+  useEffect(() => {
+    setMounted(true);
   }, []);
 
   if (!mounted) {
     return (
-      <ThirdwebProvider clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID} activeChain={activeChain}>
+      <ThirdwebProvider clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || ""} activeChain={activeChain}>
         {children}
       </ThirdwebProvider>
     );
+  }
+
+  if (!process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID) {
+    console.error("NEXT_PUBLIC_THIRDWEB_CLIENT_ID is not set in .env");
+    return <div>Error: Thirdweb client ID is missing</div>;
   }
 
   return (

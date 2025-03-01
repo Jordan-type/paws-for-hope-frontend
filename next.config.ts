@@ -27,8 +27,16 @@ const nextConfig: NextConfig = {
     ],
   },
   webpack: (config) => {
-    config.externals.push('pino-pretty');
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false, // Ensure no Node.js-specific modules conflict with Web3
+    };
+    config.externals.push("pino-pretty"); // Add pino-pretty external
     return config;
+  },
+  experimental: {
+    // Optional: Add any experimental features, but avoid breaking changes
+    // serverComponentsExternalPackages: ["@thirdweb-dev/react"], // Example if using Thirdweb
   },
 };
 
